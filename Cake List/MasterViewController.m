@@ -8,9 +8,10 @@
 
 #import "MasterViewController.h"
 #import "CakeCell.h"
+#import "CakeModel.h"
 
 @interface MasterViewController ()
-@property (strong, nonatomic) NSArray *objects;
+@property (strong, nonatomic) NSArray<CakeModel*> *cakeObjects;
 @end
 
 @implementation MasterViewController
@@ -26,7 +27,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.cakeObjects.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -40,11 +41,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CakeCell *cell = (CakeCell*)[tableView dequeueReusableCellWithIdentifier:@"CakeCell"];
     
-    NSDictionary *object = self.objects[indexPath.row];
-    cell.titleLabel.text = object[@"title"];
-    cell.descriptionLabel.text = object[@"desc"];
+    CakeModel *cake = self.cakeObjects[indexPath.row];
+    
+    cell.titleLabel.text = cake.titleText;
+    cell.descriptionLabel.text = cake.descriptionText;
  
-    NSURL *aURL = [NSURL URLWithString:object[@"image"]];
+    NSURL *aURL = [NSURL URLWithString:cake.imagePath];
     [[[NSURLSession sharedSession] dataTaskWithURL:aURL
                                  completionHandler:^(NSData * _Nullable data,
                                                      NSURLResponse * _Nullable response,
@@ -64,6 +66,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - Data Loading
+
 - (void)getData {
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
     
@@ -73,12 +77,21 @@
                                                      NSError * _Nullable error) {
         if (!error && data != nil) {
             NSError *jsonError;
-            id responseData = [NSJSONSerialization
-                               JSONObjectWithData:data
-                               options:kNilOptions
-                               error:&jsonError];
-            if (!jsonError){
-                self.objects = responseData;
+            NSArray *responseArray = [NSJSONSerialization
+                                      JSONObjectWithData:data
+                                      options:kNilOptions
+                                      error:&jsonError];
+            if (!jsonError && responseArray != nil) {
+                
+                NSMutableArray *cakes = [NSMutableArray new];
+                for (NSDictionary *jsonDict in responseArray) {
+                    CakeModel *newCake = [[CakeModel alloc] initWithJSON:jsonDict];
+                    if (newCake != nil) {
+                        [cakes addObject:newCake];
+                    }
+                }
+                self.cakeObjects = cakes;
+                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self.tableView reloadData];
                 }];
