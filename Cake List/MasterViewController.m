@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 #import "CakeCell.h"
 #import "CakeModel.h"
+#import "CakeListInteractor.h"
 
 @interface MasterViewController ()
 @property (strong, nonatomic) NSArray<CakeModel*> *cakeObjects;
@@ -71,33 +72,14 @@
 - (void)getData {
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
     
-    [[[NSURLSession sharedSession] dataTaskWithURL:url
-                                 completionHandler:^(NSData * _Nullable data,
-                                                     NSURLResponse * _Nullable response,
-                                                     NSError * _Nullable error) {
-        if (!error && data != nil) {
-            NSError *jsonError;
-            NSArray *responseArray = [NSJSONSerialization
-                                      JSONObjectWithData:data
-                                      options:kNilOptions
-                                      error:&jsonError];
-            if (!jsonError && responseArray != nil) {
-                
-                NSMutableArray *cakes = [NSMutableArray new];
-                for (NSDictionary *jsonDict in responseArray) {
-                    CakeModel *newCake = [[CakeModel alloc] initWithJSON:jsonDict];
-                    if (newCake != nil) {
-                        [cakes addObject:newCake];
-                    }
-                }
-                self.cakeObjects = cakes;
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self.tableView reloadData];
-                }];
-            }
-        }
-    }] resume];
+    [CakeListInteractor fetchCakeListFromURL:url
+                          withSuccessHandler:^(NSArray<CakeModel *> *cakes) {
+                              self.cakeObjects = cakes;
+                              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                  [self.tableView reloadData];
+                              }];
+                          }
+                                errorHandler:nil];
 }
 
 @end

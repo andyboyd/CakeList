@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2772C9581F547AF0004588E9 /* CakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2772C9571F547AF0004588E9 /* CakeModel.m */; };
+		2772C95A1F54807F004588E9 /* CakeModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2772C9591F54807F004588E9 /* CakeModelTests.m */; };
+		2772C95E1F548480004588E9 /* CakeListInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2772C95D1F548480004588E9 /* CakeListInteractor.m */; };
 		DBF17A171B0B648F004E6311 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A161B0B648F004E6311 /* main.m */; };
 		DBF17A1A1B0B648F004E6311 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A191B0B648F004E6311 /* AppDelegate.m */; };
 		DBF17A1D1B0B648F004E6311 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF17A1C1B0B648F004E6311 /* MasterViewController.m */; };
@@ -31,6 +33,9 @@
 /* Begin PBXFileReference section */
 		2772C9561F547AF0004588E9 /* CakeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CakeModel.h; sourceTree = "<group>"; };
 		2772C9571F547AF0004588E9 /* CakeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CakeModel.m; sourceTree = "<group>"; };
+		2772C9591F54807F004588E9 /* CakeModelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CakeModelTests.m; sourceTree = "<group>"; };
+		2772C95C1F548480004588E9 /* CakeListInteractor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CakeListInteractor.h; sourceTree = "<group>"; };
+		2772C95D1F548480004588E9 /* CakeListInteractor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CakeListInteractor.m; sourceTree = "<group>"; };
 		DBF17A111B0B648F004E6311 /* Cake List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cake List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF17A151B0B648F004E6311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF17A161B0B648F004E6311 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -75,6 +80,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2772C95B1F54846B004588E9 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				2772C95C1F548480004588E9 /* CakeListInteractor.h */,
+				2772C95D1F548480004588E9 /* CakeListInteractor.m */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
 		DBF17A081B0B648F004E6311 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +110,7 @@
 		DBF17A131B0B648F004E6311 /* Cake List */ = {
 			isa = PBXGroup;
 			children = (
+				2772C95B1F54846B004588E9 /* Interactors */,
 				2772C9551F547AB8004588E9 /* Model */,
 				DBF17A181B0B648F004E6311 /* AppDelegate.h */,
 				DBF17A191B0B648F004E6311 /* AppDelegate.m */,
@@ -123,6 +138,7 @@
 			children = (
 				DBF17A331B0B648F004E6311 /* Cake_ListTests.m */,
 				DBF17A311B0B648F004E6311 /* Supporting Files */,
+				2772C9591F54807F004588E9 /* CakeModelTests.m */,
 			);
 			path = "Cake ListTests";
 			sourceTree = "<group>";
@@ -257,6 +273,7 @@
 				DBF17A3F1B0B8E16004E6311 /* CakeCell.m in Sources */,
 				DBF17A1D1B0B648F004E6311 /* MasterViewController.m in Sources */,
 				2772C9581F547AF0004588E9 /* CakeModel.m in Sources */,
+				2772C95E1F548480004588E9 /* CakeListInteractor.m in Sources */,
 				DBF17A171B0B648F004E6311 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF17A341B0B648F004E6311 /* Cake_ListTests.m in Sources */,
+				2772C95A1F54807F004588E9 /* CakeModelTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
