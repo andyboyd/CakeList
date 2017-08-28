@@ -42,9 +42,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="255" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="2cJ-YH-PLb">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="255" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="cake_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="2cJ-YH-PLb">
                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                            <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="Ecq-VF-e3K"/>
                                                 <constraint firstAttribute="height" constant="60" id="siK-S2-ucp"/>
@@ -99,4 +98,7 @@
             <point key="canvasLocation" x="321.5" y="59.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cake_placeholder" width="24" height="24"/>
+    </resources>
 </document>

@@ -10,5 +10,12 @@
 
 @implementation CakeCell
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.titleLabel.text = nil;
+    self.descriptionLabel.text = nil;
+    self.cakeImageView.image = [UIImage imageNamed:@"cake_placeholder"];
+}
 
 @end

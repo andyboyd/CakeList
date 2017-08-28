@@ -44,11 +44,18 @@
     cell.titleLabel.text = object[@"title"];
     cell.descriptionLabel.text = object[@"desc"];
  
-    
     NSURL *aURL = [NSURL URLWithString:object[@"image"]];
-    NSData *data = [NSData dataWithContentsOfURL:aURL];
-    UIImage *image = [UIImage imageWithData:data];
-    [cell.cakeImageView setImage:image];
+    [[[NSURLSession sharedSession] dataTaskWithURL:aURL
+                                 completionHandler:^(NSData * _Nullable data,
+                                                     NSURLResponse * _Nullable response,
+                                                     NSError * _Nullable error) {
+        if (!error && data != nil) {
+            UIImage *image = [UIImage imageWithData:data];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [cell.cakeImageView setImage:image];
+            }];
+        }
+    }] resume];
     
     return cell;
 }
@@ -57,23 +64,27 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)getData{
-    
+- (void)getData {
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
     
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    
-    NSError *jsonError;
-    id responseData = [NSJSONSerialization
-                       JSONObjectWithData:data
-                       options:kNilOptions
-                       error:&jsonError];
-    if (!jsonError){
-        self.objects = responseData;
-        [self.tableView reloadData];
-    } else {
-    }
-    
+    [[[NSURLSession sharedSession] dataTaskWithURL:url
+                                 completionHandler:^(NSData * _Nullable data,
+                                                     NSURLResponse * _Nullable response,
+                                                     NSError * _Nullable error) {
+        if (!error && data != nil) {
+            NSError *jsonError;
+            id responseData = [NSJSONSerialization
+                               JSONObjectWithData:data
+                               options:kNilOptions
+                               error:&jsonError];
+            if (!jsonError){
+                self.objects = responseData;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self.tableView reloadData];
+                }];
+            }
+        }
+    }] resume];
 }
 
 @end
