@@ -14,6 +14,8 @@
 + (void)fetchCakeListFromURL:(NSURL *)url
           withSuccessHandler:(CakeListSuccessBlock)successBlock
                 errorHandler:(CakeListErrorBlock)errorBlock {
+    
+    //Just using straightforward NSURLSession here. Could also use AFNetworking/Alamofire for more sophisticated networking.
     [[[NSURLSession sharedSession] dataTaskWithURL:url
                                  completionHandler:^(NSData * _Nullable data,
                                                      NSURLResponse * _Nullable response,
@@ -36,6 +38,10 @@
                                              
                                              if (successBlock != nil) {
                                                  successBlock(cakes);
+                                             }
+                                         } else {
+                                             if (errorBlock != nil) {
+                                                 errorBlock(jsonError);
                                              }
                                          }
                                      } else {

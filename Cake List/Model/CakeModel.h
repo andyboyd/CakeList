@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, strong, nullable) NSString *titleText;
 @property (nonatomic, readonly, strong, nullable) NSString *descriptionText;
 
+/**
+ * Initialise a CakeModel object with a JSON dictionary. Parses string fields named "title", "desc", and "image"
+ * @param json The JSON (in NSDictionary format) to be parsed
+ * @return an initialised CakeModel object
+ **/
 - (instancetype)initWithJSON:(NSDictionary*)json NS_DESIGNATED_INITIALIZER;
 
 @end

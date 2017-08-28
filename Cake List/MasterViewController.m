@@ -12,6 +12,7 @@
 #import "CakeListInteractor.h"
 
 @interface MasterViewController ()
+//Typed array, since only objects of type CakeModel are valid data for the table
 @property (strong, nonatomic) NSArray<CakeModel*> *cakeObjects;
 @end
 
@@ -31,6 +32,7 @@
     return self.cakeObjects.count;
 }
 
+//Make cells self sizing to enable dynamic type for accessibility
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
@@ -40,6 +42,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Fixed crash bug here due to incorrect Cell Identifier.
     CakeCell *cell = (CakeCell*)[tableView dequeueReusableCellWithIdentifier:@"CakeCell"];
     
     CakeModel *cake = self.cakeObjects[indexPath.row];
@@ -63,12 +66,13 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Data Loading
 
+// Refactored to use the CakeListInteractor class to interact with the API. This takes networking responsibilities away from the View Controller, and is potentially more reusable, testable, and extensible.
 - (void)getData {
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"];
     
